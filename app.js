@@ -21,7 +21,7 @@ const swaggerDefinition = {
     version: apiVersion, // Version (required)
     description: 'Ant 웹서비스를 위한 API 문서', // Description (optional)
   },
-  host: `localhost`, // Host (optional)
+  host: 'localhost', // Host (optional)
   basePath, // Base path (optional)
 };
 // Options for the swagger docs
@@ -35,6 +35,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 const app = express();
+app.use(cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(logger('dev'));
@@ -43,6 +44,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(basePath, indexRouter);
-app.use(cors());
+
 
 module.exports = app;
