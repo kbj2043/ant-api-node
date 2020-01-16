@@ -21,7 +21,7 @@ const swaggerDefinition = {
     version: apiVersion, // Version (required)
     description: 'Ant 웹서비스를 위한 API 문서', // Description (optional)
   },
-  host: 'localhost:3000', // Host (optional)
+  host: `localhost`, // Host (optional)
   basePath, // Base path (optional)
 };
 // Options for the swagger docs
