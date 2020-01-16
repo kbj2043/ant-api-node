@@ -5,6 +5,7 @@ const logger = require('morgan');
 
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 const indexRouter = require('./routes/index');
 
 const apiVersion = '1.0.0';
@@ -42,5 +43,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(basePath, indexRouter);
+app.use(cors);
 
 module.exports = app;
