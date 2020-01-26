@@ -12,8 +12,8 @@ const indexRouter = require('./routes/index');
 const app = express();
 
 app.use(morgan('combined', { stream }));
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/', (req, res, next) => res.redirect('/api-docs'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
