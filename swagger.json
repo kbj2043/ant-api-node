@@ -1,0 +1,172 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Ant API Service",
+    "version": "v1",
+    "description": "Ant 웹서비스를 위한 API 문서"
+  },
+  "servers": [
+    {
+      "url": "/api-docs"
+    }
+  ],
+  "paths": {
+    "/user/email/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Email Login process",
+        "description": "이메일 로그인",
+        "requestBody": {
+          "description": "User data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "인증 성공, 토큰 반환",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "유저를 찾을 수 없음",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/email": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Account Create By Email",
+        "description": "이메일로 계정 생성",
+        "requestBody": {
+          "description": "Email Account Data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JoinByEmail"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "이메일 생성 완료",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Token"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "유효성 검증이 실패하여 계정 생성하지 못함.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmailLogin": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "required": "true"
+          },
+          "password": {
+            "type": "string",
+            "required": "true"
+          }
+        }
+      },
+      "JoinByEmail": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "required": "true"
+          },
+          "nickname": {
+            "type": "string",
+            "required": "true"
+          }
+        }
+      },
+      "Token": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "NotFoundError": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [ "NotFoundError" ]
+          },
+          "details": {
+            "type": "string",
+            "enum": [ "User with email not found" ]
+          }
+        }
+      },
+      "ValidationError": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [ "ValidationError" ]
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationErrorDetail"
+            }
+          }
+        }
+      },
+      "ValidationErrorDetail": {
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
