@@ -4,23 +4,20 @@
     "password": "roalvmfhwprxm!",
     "database": "ant_develop",
     "host": "database-ant-dev.ccf78jgcnw7a.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "test": {
     "username": "formicary",
     "password": "roalvmfhwprxm!",
     "database": "ant_develop",
     "host": "database-ant-dev.ccf78jgcnw7a.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   },
   "production": {
     "username": "formicary",
     "password": "roalvmfhwprxm!",
     "database": "ant_develop",
     "host": "database-ant-dev.ccf78jgcnw7a.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "dialect": "mysql"
   }
 }

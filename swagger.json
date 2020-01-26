@@ -7,11 +7,11 @@
   },
   "servers": [
     {
-      "url": "/api-docs"
+      "url": "/api/v1"
     }
   ],
   "paths": {
-    "/user/email/login": {
+    "/users/email/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "Email Login process",
@@ -33,10 +33,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Token"
-                  }
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "유효성 검증이 실패하여 로그인 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
                 }
               }
             }
@@ -54,7 +61,7 @@
         }
       }
     },
-    "/user/email": {
+    "/users/email": {
       "post": {
         "tags": ["Auth"],
         "summary": "Account Create By Email",
@@ -72,7 +79,7 @@
         },
         "responses": {
           "200": {
-            "description": "이메일 생성 완료",
+            "description": "이메일 계정 생성 완료",
             "content": {
               "application/json": {
                 "schema": {
@@ -85,11 +92,21 @@
             }
           },
           "400": {
-            "description": "유효성 검증이 실패하여 계정 생성하지 못함.",
+            "description": "유효성 검증이 실패하여 계정 생성 실패",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "이미 존재하는 계정이라서 계정 생성 실패",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserConflictError"
                 }
               }
             }
@@ -106,7 +123,7 @@
             "type": "string",
             "required": "true"
           },
-          "password": {
+          "passWord": {
             "type": "string",
             "required": "true"
           }
@@ -118,7 +135,11 @@
             "type": "string",
             "required": "true"
           },
-          "nickname": {
+          "passWord": {
+            "type": "string",
+            "required": "true"
+          },
+          "nickName": {
             "type": "string",
             "required": "true"
           }
@@ -138,8 +159,7 @@
             "enum": [ "NotFoundError" ]
           },
           "details": {
-            "type": "string",
-            "enum": [ "User with email not found" ]
+            "type": "string"
           }
         }
       },
@@ -159,10 +179,27 @@
       },
       "ValidationErrorDetail": {
         "properties": {
-          "message": {
-            "type": "string"
+          "msg": {
+            "type": "string",
+            "description": "에러 원인"
           },
-          "path": {
+          "param": {
+            "type": "string",
+            "description": "파라미터 필드명"
+          },
+          "location": {
+            "type": "string",
+            "description": "파라미터 위치 : body, query, params, cookies 또는 headers"
+          }
+        }
+      },
+      "UserConflictError": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [ "UserConflictError" ]
+          },
+          "details": {
             "type": "string"
           }
         }

@@ -9,13 +9,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nickName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       authType: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       authId: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       passWord: {
         type: Sequelize.STRING
@@ -27,6 +31,12 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      }
+    }, {
+      uniqueKeys: {
+        auth_unique: {
+          fields: ['authType', 'authId']
+        }
       }
     });
   },
