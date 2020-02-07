@@ -12,13 +12,15 @@
     "password": "roalvmfhwprxm!",
     "database": "ant_develop",
     "host": "database-ant-dev.ccf78jgcnw7a.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "JWT_SECRET": "ant-develop"
   },
   "production": {
     "username": "formicary",
     "password": "roalvmfhwprxm!",
     "database": "ant_develop",
     "host": "database-ant-dev.ccf78jgcnw7a.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "JWT_SECRET": "ant-develop"
   }
 }
